@@ -13,7 +13,6 @@ Minimal lwIP bare-metal app for the Zynq-7000 ZC702 that proves the PS → AXI �
 ## Repo layout
 - `vitis/src/` – app sources (no generated BSP/build outputs).
 - `host/` – Python UDP probe client.
-- `docs/` – add your Vivado BD screenshot (`block-diagram.png`) and notes.
 - `vivado/` – placeholder for TCL/export notes (no full project).
 
 ## Build (Vitis 2025.2)

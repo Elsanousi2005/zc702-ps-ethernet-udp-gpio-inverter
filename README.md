@@ -11,14 +11,15 @@ Minimal lwIP bare-metal app for the Zynq-7000 ZC702 that proves the PS → AXI �
 - Ethernet uses PS GEM0 via MIO/RGMII to the onboard PHY/RJ45.
 
 ## Repo layout
-- `vitis/src/` – app sources (no generated BSP/build outputs).
+- `vitis/src/` – app sources (no generated BSP/build outputs), including `platform.c/.h/.config` template for Zynq/SDT (GEM0).
 - `host/` – Python UDP probe client.
 - `vivado/` – placeholder for TCL/export notes (no full project).
 
 ## Build (Vitis 2025.2)
 1) Create/import platform `zc702_platform` (standalone, ps7_cortexa9_0, lwIP enabled, GEM0).
-2) Create an empty app and drop in `vitis/src/*` as sources. Use the BSP-provided `platform.c/h`; no custom platform files required.
-3) Build with SDT enabled (as in the default standalone domain). The app uses `XPAR_XEMACPS_0_BASEADDR`.
+2) Create an empty app and drop in `vitis/src/*` as sources. You may use the provided `platform.c/h/platform_config.h` template (Zynq/SDT, GEM0) or the BSP-generated equivalents.
+3) Set `mac_ethernet_address` in `app.c` to your board’s sticker MAC.
+4) Build with SDT enabled (as in the default standalone domain). The app uses `XPAR_XEMACPS_0_BASEADDR`.
 
 ## Runbook (board test)
 1) Program PL with the exported bitstream (contains AXI GPIO OUT → NOT → AXI GPIO IN).

@@ -11,6 +11,7 @@
 #include "netif/xadapter.h"
 
 #include "lwip/err.h"
+#include "lwip/dhcp.h"
 #include "lwip/init.h"
 #include "lwip/ip_addr.h"
 #include "lwip/tcp.h"
@@ -51,14 +52,16 @@ int main(void)
 {
 	ip_addr_t ipaddr, netmask, gw;
 	unsigned char mac_ethernet_address[] = {0x00, 0x0a, 0x35, 0x00, 0x01, 0x02};
+	u8_t dhcp_announced = 0U;
 
 	echo_netif = &server_netif;
 
 	init_platform();
 
-	IP4_ADDR(&ipaddr, 192, 168, 1, 10);
-	IP4_ADDR(&netmask, 255, 255, 255, 0);
-	IP4_ADDR(&gw, 192, 168, 1, 1);
+	/* Start with 0.0.0.0 and let DHCP assign the address. */
+	IP4_ADDR(&ipaddr, 0, 0, 0, 0);
+	IP4_ADDR(&netmask, 0, 0, 0, 0);
+	IP4_ADDR(&gw, 0, 0, 0, 0);
 
 	print_app_header();
 
@@ -77,7 +80,8 @@ int main(void)
 #endif
 
 	netif_set_up(echo_netif);
-	print_ip_settings(&ipaddr, &netmask, &gw);
+	xil_printf("DHCP: requesting lease...\r\n");
+	dhcp_start(echo_netif);
 
 	if (gpio_inverter_init() != 0) {
 		xil_printf("AXI GPIO init failed\r\n");
@@ -99,6 +103,12 @@ int main(void)
 			TcpSlowTmrFlag = 0;
 		}
 		xemacif_input(echo_netif);
+
+		if (!dhcp_announced && dhcp_supplied_address(echo_netif)) {
+			print_ip_settings(&echo_netif->ip_addr, &echo_netif->netmask,
+					  &echo_netif->gw);
+			dhcp_announced = 1U;
+		}
 	}
 
 	/* Never reached */

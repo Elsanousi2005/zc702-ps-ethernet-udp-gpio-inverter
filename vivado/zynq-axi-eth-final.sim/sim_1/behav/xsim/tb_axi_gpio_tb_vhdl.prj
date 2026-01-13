@@ -1,0 +1,13 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../zynq-axi-eth-final.ip_user_files/bd/design_1/ip/design_1_proc_sys_reset_0_0/sim/design_1_proc_sys_reset_0_0.vhd" \
+"../../../../zynq-axi-eth-final.ip_user_files/bd/design_1/ip/design_1_smartconnect_0_0/bd_0/ip/ip_1/sim/bd_48ac_psr_aclk_0.vhd" \
+"../../../../zynq-axi-eth-final.ip_user_files/bd/design_1/ip/design_1_axi_gpio_0_0/sim/design_1_axi_gpio_0_0.vhd" \
+"../../../../zynq-axi-eth-final.ip_user_files/bd/design_1/ip/design_1_axi_gpio_1_0/sim/design_1_axi_gpio_1_0.vhd" \
+"../../../../zynq-axi-eth-final.ip_user_files/bd/axi_gpio_tb/ip/axi_gpio_tb_smartconnect_0_0/bd_0/ip/ip_1/sim/bd_7a78_psr_aclk_0.vhd" \
+"../../../../zynq-axi-eth-final.ip_user_files/bd/axi_gpio_tb/ip/axi_gpio_tb_axi_gpio_0_0/sim/axi_gpio_tb_axi_gpio_0_0.vhd" \
+"../../../../zynq-axi-eth-final.ip_user_files/bd/axi_gpio_tb/ip/axi_gpio_tb_axi_gpio_0_1/sim/axi_gpio_tb_axi_gpio_0_1.vhd" \
+"../../../../zynq-axi-eth-final.ip_user_files/bd/axi_gpio_tb/ip/axi_gpio_tb_proc_sys_reset_0_0/sim/axi_gpio_tb_proc_sys_reset_0_0.vhd" \
+
+# Do not sort compile order
+nosort
